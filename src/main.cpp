@@ -153,6 +153,12 @@ int main(int argc, char* argv[]) {
       hLayer = 0;
     }
 
+    if ( OPTS::NOPLOT ) {
+      delete pRefLen;
+      pRefLen = 0;
+      return 0;
+    }
+
     // Create a LAYOUT IMAGE
     std::cout << "# Building layout..." << std::endl;
     unsigned int length(toPlot[i].getEnd()-toPlot[i].getStart());
@@ -346,9 +352,11 @@ bool computeBAMCoverage(std::string& bamF, PrePlot& pPlot, unsigned int& refLeng
     }
   } while ( ! atEnd(bamIn) );
 
-  // Sets the output file name
-  std::string output(std::string( std::string(bamFilePath) + "_" + refName + "_" + toString(bS) + "-" + toString(bE) + ".cov") );
-  writeCov(vCov, bS, output, refName);
+  if ( OPTS::WRITE ) {
+    // Sets the output file name
+    std::string output(std::string( std::string(bamFilePath) + "_" + refName + "_" + toString(bS) + "-" + toString(bE) + ".cov") );
+    writeCov(vCov, bS, output, refName);
+  }
   // Adds a coverage object to Cov
   double stats[4];
   computeStats(vCov, stats);
@@ -474,8 +482,10 @@ bool computeSAMCoverage(std::string& samF, PrePlot& pPlot, unsigned int& refLeng
   } while ( ! atEnd(samIn) );
 
   // Sets the output file name to output coverage
-  std::string output(std::string( std::string(samFilePath) + "_" + refName + "_" + toString(bS) + "-" + toString(bE) + ".cov") );
-  writeCov(vCov, bS, output, refName);
+  if ( OPTS::WRITE ) {
+    std::string output(std::string( std::string(samFilePath) + "_" + refName + "_" + toString(bS) + "-" + toString(bE) + ".cov") );
+    writeCov(vCov, bS, output, refName);
+  }
   // Adds a coverage object to Cov
   double stats[4];
   computeStats(vCov, stats);

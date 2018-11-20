@@ -14,12 +14,13 @@ namespace OPTS {
     inline bool HASREF(false);
     inline bool QUAL(false);
     inline int PHRED(13);
+    inline bool NOPLOT(false);
 }
 
 // OBJECTS
 class OOpts {
 public:
-  OOpts(std::vector<std::string> bams, std::string bed, std::string highlight, std::string reference, int phred, bool GC, bool Q, bool H,  bool write, bool plot);
+  OOpts(std::vector<std::string> bams, std::string bed, std::string highlight, std::string reference, int phred, bool GC, bool Q, bool H,  bool write, bool argPlot, bool plot);
   std::vector<std::string> getBAMs();
   std::string getBED();
   std::string getHighlight();
@@ -31,6 +32,7 @@ public:
   bool doPlot();
   bool hasRef();
   bool writeToFile();
+  bool noplot();
 private:
   std::vector<std::string> bams;
   std::string bed;
@@ -43,6 +45,7 @@ private:
   bool plot;
   bool hasref;
   bool write;
+  bool noPlot;
 };
 
 // PROTOTYPES OF FUNCTIONS

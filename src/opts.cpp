@@ -1,7 +1,7 @@
 #include "opts.h"
 
 // Classes functions
-OOpts::OOpts(std::vector<std::string> _bams, std::string _bed, std::string _highlight, std::string _reference, int _phred, bool _GC, bool _Q, bool _H, bool _write, bool _plot) : bams(_bams), bed(_bed), highlight(_highlight), reference(_reference), phred(_phred), GC(_GC), Q(_Q), H(_H), write(_write), plot(_plot)
+OOpts::OOpts(std::vector<std::string> _bams, std::string _bed, std::string _highlight, std::string _reference, int _phred, bool _GC, bool _Q, bool _H, bool _write, bool _argplot, bool _plot) : bams(_bams), bed(_bed), highlight(_highlight), reference(_reference), phred(_phred), GC(_GC), Q(_Q), H(_H), write(_write), noPlot(_argplot), plot(_plot)
 {
   if (reference != "") { hasref = true; } else { hasref = false; }
 }
@@ -17,6 +17,7 @@ bool OOpts::plotHighlight() { return H; }
 bool OOpts::doPlot() { return plot; }
 bool OOpts::hasRef() { return hasref; }
 bool OOpts::writeToFile() { return write; }
+bool OOpts::noplot() { return noPlot; }
 
 // FUNCTIONS
 OOpts readOpts(int argc, char* argv[]) {
@@ -32,6 +33,7 @@ OOpts readOpts(int argc, char* argv[]) {
   bool plotHighlight(false);
   bool gotReference(false);
   bool writeToFile(false);
+  bool noplot(false);
   int phred(13);
   for (int i(0); i < argc; i++) {
     // GET BAMS
@@ -77,18 +79,21 @@ OOpts readOpts(int argc, char* argv[]) {
       i++;
       phred = strtol(argv[i],NULL,10);
       OPTS::PHRED = phred;
+    } else if (std::string(argv[i]) == "--no-plot" || std::string(argv[i]) == "-np") {
+      noplot = true;
+      OPTS::NOPLOT = true;
     }
   }
   if ( !gotBAM ) {
     std::cout << "WARNING: No bam file was set!" << std::endl;
-    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, false);
+    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, noplot, false);
   } else if ( !gotBED ) {
     std::cout << "WARNING: No bed file was set!" << std::endl;
-    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, false);
+    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, noplot, false);
   } else if ( plotGC && !gotReference ) {
     std::cout << "WARNING: Asked to plot GC without reference genome!" << std::endl;
-    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, false);
+    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, noplot, false);
   } else {
-    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, true);
+    return OOpts(bams, bed, highlight, reference, phred, plotGC, plotQual, plotHighlight, writeToFile, noplot, true);
   }
 }

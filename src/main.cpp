@@ -105,8 +105,6 @@ int main(int argc, char* argv[]) {
     std::cout << "DONE: Coverage layers: " << layers.size() << std::endl;
 
     if (OPTS::NOPLOT) {
-      delete pRefLen;
-      pRefLen = 0;
       continue;
     }
 

@@ -39,7 +39,12 @@ make || { # Catch
 }
 # Moves compiled to bin
 mv COCOA ../bin || { # Catch
-	echo "ERROR: Could not find binary!"
+	echo "ERROR: Could not find COCOA binary!"
+	echo "WARNING: Compilation failed!"
+	exit 1
+}
+mv papaya ../bin || { # Catch
+	echo "ERROR: Could not find papaya binary!"
 	echo "WARNING: Compilation failed!"
 	exit 1
 }

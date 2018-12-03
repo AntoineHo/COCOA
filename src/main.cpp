@@ -518,14 +518,16 @@ void computeStats( const std::vector<unsigned int>& vCov, double (&stats)[4] ) {
 }
 
 void printHelp() {
-  std::cerr << "Brief USAGE:" << std::endl;
+  std::cerr << "Required:" << std::endl;
   std::cerr << "\tRequired arguments: --bam, --bed" << std::endl;
-  std::cerr << "\tRequired arguments if GC: --bam, --bed, --GC, --reference" << std::endl;
-  std::cerr << "COCOA " << "[--GC|-g] [--no-plot|-np] [--write|-w]" << std::endl
-            << "[--reference <file name>|-r <file name>]" << std::endl
-            << "[--highlight <file name>|-hl <file name>]" << std::endl
-            << "--bed <file name>" << std::endl
-            << "--bam <coma separated list of filename(s)>" << std::endl;
+  std::cerr << "\tRequired arguments if GC: --bam, --bed, --GC, --reference" << std::endl << std::endl;
+  std::cerr << "Brief USAGE:" << std::endl;
+  std::cerr << "\tCOCOA\t" << "[--GC|-g] [--no-plot|-np] [--write|-w]" << std::endl
+            << "\t\t[--reference <file name>|-r <file name>]" << std::endl
+            << "\t\t[--highlight <file name>|-hl <file name>]" << std::endl
+            << "\t\t--bed <file name>" << std::endl
+            << "\t\t--bam <coma separated list of filename(s)>" << std::endl << std::endl;
+  std::cerr << "If you find a bug, please report it to: https://github.com/AntoineHo/COCOA/issues" << std::endl;
 }
 
 inline bool fileExist(const std::string& filepath) {

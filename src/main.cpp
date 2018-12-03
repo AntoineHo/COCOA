@@ -104,6 +104,12 @@ int main(int argc, char* argv[]) {
     }
     std::cout << "DONE: Coverage layers: " << layers.size() << std::endl;
 
+    if (OPTS::NOPLOT) {
+      delete pRefLen;
+      pRefLen = 0;
+      continue;
+    }
+
     bool GCdone(false);
     // GET GC FROM REFERENCE -> TO LAYER
     GClayer *gcLayer(0);
@@ -151,12 +157,6 @@ int main(int argc, char* argv[]) {
     } else {
       delete hLayer;
       hLayer = 0;
-    }
-
-    if ( OPTS::NOPLOT ) {
-      delete pRefLen;
-      pRefLen = 0;
-      return 0;
     }
 
     // Create a LAYOUT IMAGE
@@ -518,7 +518,14 @@ void computeStats( const std::vector<unsigned int>& vCov, double (&stats)[4] ) {
 }
 
 void printHelp() {
-  std::cerr << "This is help!" << std::endl;
+  std::cerr << "Brief USAGE:" << std::endl;
+  std::cerr << "\tRequired arguments: --bam, --bed" << std::endl;
+  std::cerr << "\tRequired arguments if GC: --bam, --bed, --GC, --reference" << std::endl;
+  std::cerr << "COCOA " << "[--GC|-g] [--no-plot|-np] [--write|-w]" << std::endl
+            << "[--reference <file name>|-r <file name>]" << std::endl
+            << "[--highlight <file name>|-hl <file name>]" << std::endl
+            << "--bed <file name>" << std::endl
+            << "--bam <coma separated list of filename(s)>" << std::endl;
 }
 
 inline bool fileExist(const std::string& filepath) {

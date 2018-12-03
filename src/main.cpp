@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
         return 1;
       }
       unsigned int length( pE-pS );
-      int windowSize( 0.01*length ); // Length = 10% of total size
+      int windowSize( 0.0001*length ); // Length = 1/10000% of total size
       if (windowSize == 0) {
         windowSize = 1;
       }

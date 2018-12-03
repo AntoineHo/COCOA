@@ -4,15 +4,14 @@
 #chmod +x install.sh
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-CURRENT_DIR=$(pwd)
 
-cd $DIR
+CURRENT_DIR=$(pwd)
 # Check if tmp exists or destroys it
 if [ ! -d tmp ]; then
-	mkdir tmp
+	mkdir $DIR/tmp
 else
-	rm -rf ./tmp
-	mkdir tmp
+	rm -rf $DIR/tmp
+	mkdir $DIRtmp
 fi
 
 # Check if bin exists or destroys it

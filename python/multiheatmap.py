@@ -3,6 +3,7 @@
 
 import argparse
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import numpy as np
 import seaborn as sns
 import pandas as pd
@@ -81,7 +82,7 @@ def readCov(fn) :
 def doPlot(df, prefix, showyes, mean) :
     print(df)
     plt.style.use("seaborn")
-    fig, ax = plt.subplots(figsize=(25,0.5*len(df)))    
+    fig, ax = plt.subplots(figsize=(25,0.5*len(df)))
 
     c = ax.pcolor(df, cmap="viridis", vmin=0, vmax=2*mean)
     ax.set_yticks( np.arange(df.shape[0])+0.5, minor=False )
